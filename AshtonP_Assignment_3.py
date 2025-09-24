@@ -47,20 +47,52 @@ print(f"According to your data your actual course load is: {course_load}")
 
 study_options = ["Programming", "Math", "English", "History"]
 select_class = input(f"Select the class you perform the best in from the list {study_options}: ")
+focus = ""
 if select_class in study_options:
-    if select_class == "Programming" and social_points < 50:
-        print("It's time to go outside and talk to people.")
-    elif select_class == "Math" and stress_level > 70:
-        print("Take a break from math and cool off.")
-    elif select_class == "English" and (social_points < 40 or stress_level > 60):
-        print("Time to put the pencil down and socialize.")
-    elif select_class == "History" and current_gpa >= 3.0 and social_points < 48:
-        print("Take some time from studying and socialize.")
-    elif current_gpa >= 3.0 and social_points < 50:
-        print("Give yourself a break to socialize!")
-    elif social_points > 60 and current_gpa < 2.8:
-        print("Time to spend less time socializing and more time studying!")
+    if social_points < 55 and current_gpa >= 3.0:
+        focus = "Social"
+    elif social_points >= 60 and current_gpa < 2.8:
+        focus = "Study"
+    elif stress_level > 50 and social_points < 60:
+        focus = "Social"
+    elif social_points < 50:
+        focus = "Social"
     else:
-        print("Make sure to balance studying and socializing!")
+        focus = "Study"
 elif select_class not in study_options:
     print(f"{select_class} is not a valid option!")
+summary = ""
+if course_load == "Light":
+    if focus == "Study":
+        if stress_level >= 60:
+            summary ="To reduce stress you should socialize a little more but still focus on studying."
+    elif focus == "Study":
+        summary = "You should focus on studying"
+    elif focus == "Social":
+        summary = "You should take a break from studying and socialize"
+elif course_load == "Medium":
+    if focus == "Study":
+        if stress_level >= 70:
+            summary = "Take a break between study sessions to socialize!"
+    elif focus == "Study":
+        summary = "You should study"
+    elif focus == "Social":
+        summary = "You should spend more time socializing"
+elif course_load == "Heavy":
+    if focus == "Study":
+        if stress_level >= 70 and social_points < 45:
+            summary = "You should take a break from studying and socialize."
+        else:
+            summary = "With your work load you should spend more time studying."
+    elif focus == "Social":
+        summary = "You should take a break from your heavy work load and study."
+
+print("=== YOUR FINAL STATS ===")
+print(f"Name: {student_name}")
+print(f"Current GPA: {current_gpa}")
+print(f"Study Hours: {study_hours}")
+print(f"Social Points: {social_points}")
+print(f"Stress Level (0-100): {stress_level}")
+print(f"Your best class: {select_class}")
+print(f"Your calculated course load: {course_load}")
+print(f"Your summary: {summary}")
