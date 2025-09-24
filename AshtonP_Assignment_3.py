@@ -12,34 +12,55 @@ print("Choose your course load:")
 print("A) Light (12 Credits)\nB) Standard (15 credits)\nC) Heavy (18 credits)")
 
 choice = input("Your choice: ")
-
+course_load = ""
 if choice == "A":
-    if stress_level > 50 and current_gpa < 3.0:
-        if study_hours > 45:
-            print("Unusually high course load!")
-        else:
-            print("Put more time into studying and regulate stress")
-    elif current_gpa < 3.0:
-        print("Spend more time studying")
+    if  current_gpa >= 3.0 and study_hours < 25:
+        course_load = "Light"
+    elif study_hours > 30 and stress_level >= 35:
+        course_load = "Medium"
+    elif study_hours > 30:
+        course_load = "Heavy"
     else:
-        print("Keep up the good work")
+        course_load = "Light"
 elif choice == "B":
-    if stress_level > 60 and current_gpa < 2.6 and study_hours < 50:
-        print("Put more time into studying")
-    elif current_gpa > 3.5 and stress_level > 70 and study_hours > 50:
-        print("Spend a little less time studying to help with stress levels")
-    elif current_gpa < 3.0:
-        print("Spend more time studying")
+    if current_gpa >= 3.2 and study_hours <= 25:
+        course_load = "Light"
+    elif current_gpa <= 3.0 or study_hours > 40:
+        course_load = "Heavy"
+    elif current_gpa >= 2.8 and study_hours < 40:
+        course_load = "Medium"
     else:
-        print("Keep up the good work!")
+        course_load = "Medium"
 elif choice == "C":
-    if study_hours < 58 and  current_gpa < 3.0:
-        print("Spend more time studying")
-    elif study_hours > 58 and current_gpa >= 3.0 and stress_level >= 75:
-        print("Take a break from studying to reduce stress")
-    elif current_gpa < 2.8:
-        print("Spend more time studying")
+    if current_gpa >= 3.0 and study_hours <= 50:
+        course_load = "Medium"
+    elif study_hours > 50 and current_gpa < 3.0:
+        course_load = "Heavy"
+    elif study_hours <= 50 and current_gpa > 3.0:
+        course_load = "Light"
     else:
-        print("Amazing work!")
+        course_load = "Heavy"
 else:
     print("Given input is invalid! Please try again.")
+
+print(f"According to your data your actual course load is: {course_load}")
+
+study_options = ["Programming", "Math", "English", "History"]
+select_class = input(f"Select the class you perform the best in from the list {study_options}: ")
+if select_class in study_options:
+    if select_class == "Programming" and social_points < 50:
+        print("It's time to go outside and talk to people.")
+    elif select_class == "Math" and stress_level > 70:
+        print("Take a break from math and cool off.")
+    elif select_class == "English" and (social_points < 40 or stress_level > 60):
+        print("Time to put the pencil down and socialize.")
+    elif select_class == "History" and current_gpa >= 3.0 and social_points < 48:
+        print("Take some time from studying and socialize.")
+    elif current_gpa >= 3.0 and social_points < 50:
+        print("Give yourself a break to socialize!")
+    elif social_points > 60 and current_gpa < 2.8:
+        print("Time to spend less time socializing and more time studying!")
+    else:
+        print("Make sure to balance studying and socializing!")
+elif select_class not in study_options:
+    print(f"{select_class} is not a valid option!")
