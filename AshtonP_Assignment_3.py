@@ -1,98 +1,70 @@
-# Initial test case initializing variables
-student_name = "Ashton"
-current_gpa = 3.7
-study_hours = 30
-social_points = 40
-stress_level = 20
+# GITHUB LINK
+# Initialize our starting variables and ask for user input
+ship_name = input("Enter the name of your ship: ")
+ship_health = 100
+ship_crew = ["Steve","Roe","E.T"]
+ship_weapons_damage = 10
+has_scanner = False
+money = 0
 
-print(f"Hello {student_name}, your GPA is {current_gpa}, your study hours are {study_hours}, you have {social_points} social points, and your stress level is {stress_level}")
+game_event = ["Salvage","Battle","Rescue"]
 
-# First set of conditionals determining work load
-print("Choose your course load:")
-print("A) Light (12 Credits)\nB) Standard (15 credits)\nC) Heavy (18 credits)")
+# Have users pick a ship focus that will greatly affect the outcome/ending
+print("""Now that you've named your ship its time to decide its primary focus.
+      A.) Health - You ship invests in outlasting your opponent rather than outfiring them
+      B.) Scanner - It helps to know what's ahead so you can prepare for danger. This focus ensures you know what comes next.
+      C.) Weapons - Decimate your opponent with heavy weapons
+      """)
+ship_choice = input("Your choice (A, B, C): ")
 
-choice = input("Your choice: ")
-course_load = ""
-if choice == "A":
-    if  current_gpa >= 3.0 and study_hours < 25:
-        course_load = "Light"
-    elif study_hours > 30 and stress_level >= 35:
-        course_load = "Medium"
-    elif study_hours > 30:
-        course_load = "Heavy"
-    else:
-        course_load = "Light"
-elif choice == "B":
-    if current_gpa >= 3.2 and study_hours <= 25:
-        course_load = "Light"
-    elif current_gpa <= 3.0 or study_hours > 40:
-        course_load = "Heavy"
-    elif current_gpa >= 2.8 and study_hours < 40:
-        course_load = "Medium"
-    else:
-        course_load = "Medium"
-elif choice == "C":
-    if current_gpa >= 3.0 and study_hours <= 50:
-        course_load = "Medium"
-    elif study_hours > 50 and current_gpa < 3.0:
-        course_load = "Heavy"
-    elif study_hours <= 50 and current_gpa > 3.0:
-        course_load = "Light"
-    else:
-        course_load = "Heavy"
+if ship_choice == "A":
+    ship_health += 50
+elif ship_choice == "B":
+    has_scanner = True
+elif ship_choice == "C":
+    ship_weapons_damage += 10
 else:
-    print("Given input is invalid! Please try again.")
+    print(f"{ship_choice} is an invalid option. Please try again.")
 
-print(f"According to your data your actual course load is: {course_load}")
+print("Now that your ready to venture into space let's decide what you want to do.")
+print(f"Choose from the following options on what you want to do {game_event}: ")
+event_choice = input(f"Your choice {game_event}: ")
 
-study_options = ["Programming", "Math", "English", "History"]
-select_class = input(f"Select the class you perform the best in from the list {study_options}: ")
-focus = ""
-if select_class in study_options:
-    if social_points < 55 and current_gpa >= 3.0:
-        focus = "Social"
-    elif social_points >= 60 and current_gpa < 2.8:
-        focus = "Study"
-    elif stress_level > 50 and social_points < 60:
-        focus = "Social"
-    elif social_points < 50:
-        focus = "Social"
-    else:
-        focus = "Study"
-elif select_class not in study_options:
-    print(f"{select_class} is not a valid option!")
-summary = ""
-if course_load == "Light":
-    if focus == "Study":
-        if stress_level >= 60:
-            summary ="To reduce stress you should socialize a little more but still focus on studying."
-    elif focus == "Study":
-        summary = "You should focus on studying"
-    elif focus == "Social":
-        summary = "You should take a break from studying and socialize"
-elif course_load == "Medium":
-    if focus == "Study":
-        if stress_level >= 70:
-            summary = "Take a break between study sessions to socialize!"
-    elif focus == "Study":
-        summary = "You should study"
-    elif focus == "Social":
-        summary = "You should spend more time socializing"
-elif course_load == "Heavy":
-    if focus == "Study":
-        if stress_level >= 70 and social_points < 45:
-            summary = "You should take a break from studying and socialize."
+
+if event_choice == "Salvage":
+    if has_scanner == True:
+        print("Your scanners picked up no dangerous lifeforms or dangerous ships, leading you to a successful salvage. You gained +25 Money")
+        credits += 25
+    elif ship_choice == "A":
+        print("Because you have no scanners you are unaware of any danger. While attempting to salvage a rouge turret fires upon your ship. Ship Health: -10, Money: +15")
+        ship_health -= 10
+        money += 15
+    elif ship_choice == "C":
+        print("Being unable to scan for danger has you cautious, you fire your cannons to ensure the wreck is safe to salvage, destroying some of the loot in the process. Money: +6")
+        money += 6
+    game_event.remove("Salvage")
+elif event_choice == "Rescue":
+    if has_scanner == True:
+        print("""After recieving a distress signal you scan the vessel for danger. Your scanners pick up that 
+              the distress signal is coming from a crew of dangerous rouge androids
+              you destroy their vessel and salvage the wreck. Money: +10
+              """)
+    elif ship_choice == "A":
+        print("You've just recieved a distress signal, but you are unaware of any danger that might be present.")
+        print("You must choice your next decision wisely: A.) Take no chances and destroy the ship\nB.) Take the chance of saving lives")
+        rescue_choice = input("Your choice (A,B): ")
+        if rescue_choice == "A":
+            print("Unwilling to take any risks you destroy their ship. Unfortunatly those aboard were infact in need of aid. But at least you were able to salvage something. Money: +20")
+            money += 20
+        elif rescue_choice == "B":
+            print("Being the selfless captain you are you take the risk and help those in need. Luckily for you the crew you saved were peaceful. In their gratitude they offer you money and one pledges himself to your crew.")
+            print(f'Crew member gained: Rogers, Money: +10')
         else:
-            summary = "With your work load you should spend more time studying."
-    elif focus == "Social":
-        summary = "You should take a break from your heavy work load and study."
-
-print("=== YOUR FINAL STATS ===")
-print(f"Name: {student_name}")
-print(f"Current GPA: {current_gpa}")
-print(f"Study Hours: {study_hours}")
-print(f"Social Points: {social_points}")
-print(f"Stress Level (0-100): {stress_level}")
-print(f"Your best class: {select_class}")
-print(f"Your calculated course load: {course_load}")
-print(f"Your summary: {summary}")
+            print(f"'{rescue_choice}' is not a valid option. Please try again.")
+    elif ship_choice == "C":
+        print("After recieving a message requesting aid you jump to the rescue. Encountering a large vessel poised for attack!")
+        print("After a lengthy and hard fought battle you save the endangered crew but not without casualties. Luckily the crew you saved is  greatful and compensated you the best they could.")
+        print(f"Ship damaged: -30, Crew member lost: {ship_crew[1]}, Money: +25")
+        ship_health -= 30
+        ship_crew.pop(1)
+        money +=25
