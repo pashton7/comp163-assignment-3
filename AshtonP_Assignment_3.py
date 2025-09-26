@@ -1,14 +1,14 @@
-# GITHUB LINK
+# GITHUB LINK: https://github.com/pashton7/comp163-assignment-3
 # Initialize our starting variables and ask for user input
-ship_name = input("Enter the name of your ship: ")
-ship_health = 100
-ship_crew = ["Steve","Roe","E.T"]
-heavy_weapons = False
-has_scanner = False
-money = 0
+ship_name = input("Enter the name of your ship: ") # Has no actual usage except for Stat display
+ship_health = 100 # Used to determine if player has died
+ship_crew = ["Steve","Roe","E.T"] # List of crewmembers the player can loose 
+heavy_weapons = False # Bool option that is toggle to True based on user decisions
+has_scanner = False #  Bool option that is toggle to True based on user decisions
+money = 0 # The "Score" counter for the game. You want the most amount to "win"
 
-event_choices = []
-game_event = ["Salvage","Battle","Rescue"]
+event_choices = [] # A list that is inserted with past even choices for stat display
+game_event = ["Salvage","Battle","Rescue"] # A list of valid events that players can choose
 
 # Have users pick a ship focus that will greatly affect the outcome/ending
 print("""Now that you've named your ship its time to decide its primary focus.
@@ -34,20 +34,20 @@ event_choices.append(event_choice)
 print()
 
 # Handle the game logic and branching where each player choice effects the ending
-if event_choice in game_event:
-    if event_choice == "Salvage":
-        game_event.remove(event_choice)
-        if has_scanner is True:
-            print("Your scanners picked up no dangerous lifeforms or dangerous ships, leading you to a successful salvage. You gained +25 Money")
-            money += 25
-        elif ship_choice == "A":
+if event_choice in game_event: # Check if the option is in the list of valid options
+    if event_choice == "Salvage": # Only runs if "Salvage" option was chosen
+        game_event.remove(event_choice) # Remove it from the list of valid options in the future so it cant be repeated
+        if has_scanner is True: # Branch only runs if user chose ship B
+            print("Your scanners picked up no dangerous lifeforms or dangerous ships, leading you to a successful salvage. You gained +25 Money") # Display decision outcome 
+            money += 25 # Make variable changes to match outcome
+        elif ship_choice == "A": # Branch only runs if user chose ship A
             print("Because you have no scanners you are unaware of any danger. While attempting to salvage a rouge turret fires upon your ship. Ship Health: -10, Money: +15")
             ship_health -= 10
             money += 15
-        elif heavy_weapons is True:
+        elif heavy_weapons is True: # Branch only runs if user chose ship C
             print("Being unable to scan for danger has you cautious, you fire your cannons to ensure the wreck is safe to salvage, destroying some of the loot in the process. Money: +6")
             money += 6
-    elif event_choice == "Rescue":
+    elif event_choice == "Rescue": # Only runs if "Rescue" option was chosen
         game_event.remove(event_choice)
         if has_scanner is True:
             print("After recieving a distress signal you scan the vessel for danger. Your scanners pick up that the distress signal is coming from a crew of dangerous rouge \nandroids you destroy their vessel and salvage the wreck. Money: +10")
@@ -55,6 +55,7 @@ if event_choice in game_event:
         elif ship_choice == "A":
             print("You've just recieved a distress signal, but you are unaware of any danger that might be present.")
             print("You must choose your next decision wisely:\nA.) Take no chances and destroy the ship\nB.) Take the chance of saving lives")
+            # Having players put in a nested input to give players more decisions on what to do
             rescue_choice = input("Your choice (A, B): ")
             if rescue_choice == "A":
                 print("Unwilling to take any risks you destroy their ship. Unfortunatly those aboard were infact in need of aid. But at least you were able to salvage something. Money: +20")
@@ -73,7 +74,7 @@ if event_choice in game_event:
             ship_health -= 30
             ship_crew.pop(1)
             money += 25
-    elif event_choice == "Battle":
+    elif event_choice == "Battle": # Only runs if "Battle" option was chosen
         game_event.remove(event_choice)
         if has_scanner is True:
             print("While flying across the galaxy you encounter a vessel with a bounty on its head. Unfortunatly they have jammed your scanners leaving you unaware of their power.")
@@ -89,6 +90,7 @@ if event_choice in game_event:
         elif ship_choice == "A":
             print("While traveling across the galaxy you are attacked by pirates. They've given you two options,  pay them or die.")
             print("What will you do?: \nA.) Concede, theres no risk getting hurt\nB.) A pirate cannot be trusted, all hands on deck!")
+            # Having players put in a nested input to give players more decisions on what to do
             battle_choice2 = input("Your choice (A, B): ")
             if battle_choice2 == "A":
                 print(f"You concede and are willing to pay the price they ask, consequently they have taken a large sum of money and one of your crew members\n Crewmember lost: {ship_crew[0]}, Money: -60")
@@ -104,6 +106,7 @@ if event_choice in game_event:
         elif heavy_weapons is True:
             print("You come across a battle between smugglers and a bounty hunter. They both have requested of your help, the smugglers offer you a portion of their goods but the bounty hunter offers you a portion of the bounty reward.")
             print("What will you do?:\nA.) Side with the smugglers they might have valuable goods.\nB.) Side with the bounty hunter, the reward might be greater than the risks.\nC.) My enemies are many, my equals are none. Attack both and claim the rewards for yourself!")
+            # Having players put in a nested input to give players more decisions on what to do
             battle_choice3 = input("Your choice (A, B, C): ")
             if battle_choice3 == "A":
                 print("You decide to team up with the smugglers and you easily take down the bounty hunter. As thanks the smugglers give you a portion of their loot and you salvage the remains of the bounty hunter's ship.")
@@ -126,26 +129,25 @@ else:
     print(f"{event_choice} is an invalid option. Please try again.")
 
 # Run game logic again to have end game results differ
-print(f"Choose from the following options on what you want to do {game_event}: ")
+print(f"Choose from the following options on what you want to do next {game_event}: ")
 event_choice = input(f"Your choice {game_event}: ")
 event_choices.append(event_choice)
 print()
 
-# Handle the game logic and branching where each player choice effects the ending
-if event_choice in game_event:
-    if event_choice == "Salvage":
-        game_event.remove(event_choice)
-        if has_scanner is True:
-            print("Your scanners picked up no dangerous lifeforms or dangerous ships, leading you to a successful salvage. You gained +25 Money")
-            money += 25
-        elif ship_choice == "A":
+if event_choice in game_event: # Check if the option is in the list of valid options
+    if event_choice == "Salvage": # Only runs if "Salvage" option was chosen
+        game_event.remove(event_choice) # Remove it from the list of valid options in the future so it cant be repeated
+        if has_scanner is True: # Branch only runs if user chose ship B
+            print("Your scanners picked up no dangerous lifeforms or dangerous ships, leading you to a successful salvage. You gained +25 Money") # Display decision outcome 
+            money += 25 # Make variable changes to match outcome
+        elif ship_choice == "A": # Branch only runs if user chose ship A
             print("Because you have no scanners you are unaware of any danger. While attempting to salvage a rouge turret fires upon your ship. Ship Health: -10, Money: +15")
             ship_health -= 10
             money += 15
-        elif heavy_weapons is True:
+        elif heavy_weapons is True: # Branch only runs if user chose ship C
             print("Being unable to scan for danger has you cautious, you fire your cannons to ensure the wreck is safe to salvage, destroying some of the loot in the process. Money: +6")
             money += 6
-    elif event_choice == "Rescue":
+    elif event_choice == "Rescue": # Only runs if "Rescue" option was chosen
         game_event.remove(event_choice)
         if has_scanner is True:
             print("After recieving a distress signal you scan the vessel for danger. Your scanners pick up that the distress signal is coming from a crew of dangerous rouge \nandroids you destroy their vessel and salvage the wreck. Money: +10")
@@ -153,6 +155,7 @@ if event_choice in game_event:
         elif ship_choice == "A":
             print("You've just recieved a distress signal, but you are unaware of any danger that might be present.")
             print("You must choose your next decision wisely:\nA.) Take no chances and destroy the ship\nB.) Take the chance of saving lives")
+            # Having players put in a nested input to give players more decisions on what to do
             rescue_choice = input("Your choice (A, B): ")
             if rescue_choice == "A":
                 print("Unwilling to take any risks you destroy their ship. Unfortunatly those aboard were infact in need of aid. But at least you were able to salvage something. Money: +20")
@@ -171,7 +174,7 @@ if event_choice in game_event:
             ship_health -= 30
             ship_crew.pop(1)
             money += 25
-    elif event_choice == "Battle":
+    elif event_choice == "Battle": # Only runs if "Battle" option was chosen
         game_event.remove(event_choice)
         if has_scanner is True:
             print("While flying across the galaxy you encounter a vessel with a bounty on its head. Unfortunatly they have jammed your scanners leaving you unaware of their power.")
@@ -187,6 +190,7 @@ if event_choice in game_event:
         elif ship_choice == "A":
             print("While traveling across the galaxy you are attacked by pirates. They've given you two options,  pay them or die.")
             print("What will you do?: \nA.) Concede, theres no risk getting hurt\nB.) A pirate cannot be trusted, all hands on deck!")
+            # Having players put in a nested input to give players more decisions on what to do
             battle_choice2 = input("Your choice (A, B): ")
             if battle_choice2 == "A":
                 print(f"You concede and are willing to pay the price they ask, consequently they have taken a large sum of money and one of your crew members\n Crewmember lost: {ship_crew[0]}, Money: -60")
@@ -202,6 +206,7 @@ if event_choice in game_event:
         elif heavy_weapons is True:
             print("You come across a battle between smugglers and a bounty hunter. They both have requested of your help, the smugglers offer you a portion of their goods but the bounty hunter offers you a portion of the bounty reward.")
             print("What will you do?:\nA.) Side with the smugglers they might have valuable goods.\nB.) Side with the bounty hunter, the reward might be greater than the risks.\nC.) My enemies are many, my equals are none. Attack both and claim the rewards for yourself!")
+            # Having players put in a nested input to give players more decisions on what to do
             battle_choice3 = input("Your choice (A, B, C): ")
             if battle_choice3 == "A":
                 print("You decide to team up with the smugglers and you easily take down the bounty hunter. As thanks the smugglers give you a portion of their loot and you salvage the remains of the bounty hunter's ship.")
@@ -223,7 +228,7 @@ if event_choice in game_event:
 else:
     print(f"{event_choice} is an invalid option. Please try again.")
 
-# Handle the ending of the game
+# Give players a summary of how they did
 print("Game results:\n")
 if ship_health <= 55 and ship_health > 0 and money > 60:
     print("Summary: You sacrificed losing your ship to gain wealth. Luckily it worked out for you.")
@@ -237,9 +242,10 @@ elif len(ship_crew) > 3:
     print("Summary: You worked hard to keep your crew alive and picked up some extra members along the way")
 elif ship_health <= 0:
     print("Summary: You failed as a captian. You let you, your ship, and your crew perish.")
-else:
+else: # If all other checks are False then display this default message
     print("Summary: You played an average game and came out with nothing.")
 
+# Give players a rundown of their stats
 print("=== GAME STATS ===")
 print(f"Ship name: {ship_name}")
 print(f"Ship choice: {ship_choice}")
